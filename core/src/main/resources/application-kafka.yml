@@ -1,0 +1,27 @@
+spring:
+  kafka:
+    bootstrap-servers: ${spring.cloud.stream.kafka.binder.brokers}
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: ${KAFKA_BROKER_URL:localhost}:9092,${KAFKA_BROKER_URL:localhost}:9093,${KAFKA_BROKER_URL:localhost}:9094
+          required-acks: all
+          replication-factor: 3
+          auto-create-topics: true
+          auto-add-partitions: true
+          transaction:
+            transaction-id-prefix: ${random.uuid}
+          producer-properties:
+            acks: all
+            retries: 3
+            retry.backoff.ms: 1000
+            enable.idempotence: true
+            max.in.flight.requests.per.connection: 5
+            max.block.ms: 3000
+
+          consumer-properties:
+            retry.backoff.ms: 1000
+            isolation-level: read_committed
+            enable.auto.commit: false
+            max.poll.records: 1000

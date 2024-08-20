@@ -1,0 +1,44 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: api
+  config:
+    import: |-
+      classpath:application-kafka.yml,
+      classpath:application-kafka-producer.yml,
+      classpath:application-redis.yml,
+      classpath:application-client.yml
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    properties:
+      hibernate:
+        show_sql: true
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password:
+
+  sql:
+    init:
+      schema-locations: classpath:schema.sql
+      data-locations: classpath:data.sql
+      mode: always
+
+logging:
+  level:
+    root: info
+    org.springframework.web: info
+
+logger:
+  name: com.playground
+  level: info

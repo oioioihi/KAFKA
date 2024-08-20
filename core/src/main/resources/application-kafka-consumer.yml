@@ -1,0 +1,37 @@
+spring:
+  cloud:
+    function:
+      definition: helloTopic;byeTopic;
+    stream:
+      kafka:
+        bindings:
+          helloTopic-in-0:
+            consumer:
+              enable-dlq: true
+              dlq-name: hello-dlq
+              start-offset: latest
+              configuration:
+                client.id: hello-event-${random.uuid}
+                max.poll.recoreds: 3000
+          byeTopic-in-0:
+            consumer:
+              enable-dlq: true
+              dlq-name: bye-dlq
+              start-offset: latest
+              configuration:
+                client.id: bye-event-${random.uuid}
+                max.poll.recoreds: 3000
+      bindings:
+        helloTopic-in-0:
+          group: hello-topic
+          destination: hello-topic
+          consumer:
+            concurrency: 5
+            auto-startup: true
+        byeTopic-in-0:
+          group: bye-topic
+          destination: bye-topic
+          consumer:
+            concurrency: 5
+            auto-startup: true
+

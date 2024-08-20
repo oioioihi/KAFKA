@@ -1,0 +1,67 @@
+plugins {
+    id 'groovy'
+    id "java-library"
+    id "org.springframework.boot" version "${springBootVersion}"
+    id "io.spring.dependency-management" version "${springDependencyVersion}"
+}
+
+allprojects {
+    group = "${group}"
+
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of("${javaVersion}")
+        }
+    }
+
+    repositories {
+        mavenCentral()
+    }
+
+    apply {
+        plugin 'groovy'
+        plugin "java-library"
+        plugin "org.springframework.boot"
+        plugin "io.spring.dependency-management"
+    }
+
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+        }
+    }
+    dependencies {
+        annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+        implementation "org.springframework.boot:spring-boot-starter"
+        implementation "org.springframework.boot:spring-boot-starter-web"
+        implementation 'org.springframework.boot:spring-boot-starter-validation'
+        compileOnly 'org.projectlombok:lombok'
+        annotationProcessor 'org.projectlombok:lombok'
+        // Kafka
+        implementation 'org.springframework.cloud:spring-cloud-stream-binder-kafka'
+        // Feign Client
+        implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+        // Redis
+        implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+        testImplementation "org.springframework.boot:spring-boot-starter-test"
+        testImplementation "org.assertj:assertj-core:${assertjVersion}"
+        testImplementation platform("org.junit:junit-bom:${junitBomVersion}")
+        testImplementation "org.junit.jupiter:junit-jupiter"
+        testImplementation 'org.spockframework:spock-core:2.3-groovy-3.0'
+    }
+
+    test {
+        useJUnitPlatform()
+        testLogging {
+            events "passed", "skipped", "failed"
+            exceptionFormat "full"
+            showCauses true
+            showExceptions true
+        }
+    }
+}
+
+bootJar {
+    enabled false
+}
+

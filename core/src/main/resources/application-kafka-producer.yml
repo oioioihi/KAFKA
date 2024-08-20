@@ -1,0 +1,20 @@
+spring:
+  cloud:
+    stream:
+      kafka:
+        bindings:
+          hello-topic:
+            producer:
+              allow-non-transactional: false
+          bye-topic:
+            producer:
+              allow-non-transactional: false
+      bindings:
+        hello-topic:
+          destination: hello-topic
+          content-type: application/json
+        bye-topic:
+          destination: bye-topic
+          content-type: application/json
+
+
