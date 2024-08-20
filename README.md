@@ -60,4 +60,4 @@ Kafka의 여러가지 설정들과 Spring Boot의 설정 등을 테스트하기 
 ### Tip
 
 - [Kafka UI](http://localhost:9999)를 통해 Kafka Topic을 확인할 수 있습니다.
-# KAFKA
+
