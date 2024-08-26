@@ -12,6 +12,8 @@ spring:
           auto-add-partitions: true
           transaction:
             transaction-id-prefix: ${random.uuid}
+            producer:
+              partition-count: 5
           producer-properties:
             acks: all
             retries: 3
