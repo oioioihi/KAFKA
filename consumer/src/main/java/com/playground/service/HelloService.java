@@ -10,6 +10,13 @@ import org.springframework.stereotype.Component;
 public class HelloService {
 
     public void helloConsume(String payload) {
-        log.info("Pay Load : {}", payload);
+
+
+        try {
+            Thread.sleep(500);
+            log.info("Pay Load : {}", payload);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

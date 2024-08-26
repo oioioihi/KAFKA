@@ -14,7 +14,7 @@ public class ThreadPoolConfig {
     @Bean(name = "hello-taskExecutor")
     public Executor helloTaskExecutor() {
         ThreadPoolTaskExecutor taskExecutor = new ThreadPoolTaskExecutor();
-        taskExecutor.setThreadNamePrefix("hello");
+        taskExecutor.setThreadNamePrefix("hello-thread");
         taskExecutor.setCorePoolSize(20);
         taskExecutor.setMaxPoolSize(20);
         taskExecutor.setWaitForTasksToCompleteOnShutdown(true);
